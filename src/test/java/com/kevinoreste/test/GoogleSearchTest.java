@@ -64,30 +64,31 @@ public class GoogleSearchTest {
 		
 		
 		ExtentTest prueba = extent.createTest("Ejercicio de Automatización");
-		prueba.pass("Ejercicio de Automatización ha comenzado");
-		prueba.info("Abrimos la página de Consultoria Global'");
+		mostrarMensaje("Ejercicio de Automatización ha comenzado", prueba);
+		mostrarMensaje("Abrimos la página de 'Consultoria Global'", prueba);
 			
 		driver.findElement(contactoLinkLocator).click();
 		Thread.sleep(2000);
-		prueba.info("Abrimos la sección de 'Contacto'");
+		mostrarMensaje("Abrimos la seccion de Contacto", prueba);
 		
 
 		Assert.assertTrue(driver.findElement(contactoPageLocator).isDisplayed());
 
 		driver.findElement(nombreUsuario).sendKeys("Kevin");
-		prueba.info("Se ingreso el nombre");
+		mostrarMensaje("Se ingreso el nombre", prueba);
 		driver.findElement(mailUsuario).sendKeys("kevinorestehotmail");
-		prueba.info("Se ingreso el e-mail");
+		mostrarMensaje("Se ingreso el e-mail", prueba);
 		driver.findElement(asuntoUsuario).sendKeys("Ejercicio");
-		prueba.info("Se ingreso el asunto");
+		mostrarMensaje("Se ingreso el asunto", prueba);
 		driver.findElement(mensajeUsuario).sendKeys("Automatización en JAVA");
-		prueba.info("Se ingreso el mensaje");
+		mostrarMensaje("Se ingreso el mensaje", prueba);
 		driver.findElement(captchaUsuario).sendKeys("KA2E");
-		prueba.info("Se ingreso el captcha");
+		mostrarMensaje("Se ingreso el captcha", prueba);
+		
 
 		driver.findElement(botonEnviarForm).click();
-		prueba.info("Se envio el formulario");
-	
+		mostrarMensaje("Se envio el formulario", prueba);
+		
 		Thread.sleep(2000);
 		
 		WebElement emailInvalido = driver.findElement(By.xpath("//span[text() = 'La dirección e-mail parece inválida.']"));
@@ -101,6 +102,13 @@ public class GoogleSearchTest {
 		prueba.log(Status.PASS,"Se detectó el mensaje de error de e-mail invalido",MediaEntityBuilder.createScreenCaptureFromBase64String(Base64.getEncoder().encodeToString(fileContent)).build());
 		
 		extent.flush();
+		
+	}
+	
+	public void mostrarMensaje(String mensaje, ExtentTest prueba) {
+		
+		System.out.println(mensaje);
+		prueba.info(mensaje);
 		
 	}
 	
